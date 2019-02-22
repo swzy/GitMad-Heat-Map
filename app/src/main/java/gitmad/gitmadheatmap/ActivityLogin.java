@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.FirebaseApp;
+
 public class ActivityLogin extends AppCompatActivity {
 
 
@@ -23,7 +25,7 @@ public class ActivityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        FirebaseApp.initializeApp(this);
         // Firebase.
         mAuth = new FbAuth();
 
@@ -39,6 +41,17 @@ public class ActivityLogin extends AppCompatActivity {
         registerHere = findViewById(R.id.login_btn_register_here);
 
         // TODO 1: Create a new OnClickListener for our register button. This button should start the ActivityRegistration Activity.
+        registerHere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailText = emailEntry.getText().toString();
+
+                Intent i = new Intent(getApplicationContext(), ActivityRegistration.class);
+                i.putExtra("email", emailText);
+                startActivity(i);
+            }
+        });
+
         // TODO 1.1 (optional): Pass along the user's email in this intent.
 
         // TODO 6: Create a OnClickListener for our login button.

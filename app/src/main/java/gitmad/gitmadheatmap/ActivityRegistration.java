@@ -1,15 +1,19 @@
 package gitmad.gitmadheatmap;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +34,7 @@ public class ActivityRegistration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_registration);
 
         // Layout elements.
@@ -40,7 +45,8 @@ public class ActivityRegistration extends AppCompatActivity {
         lNameEntry = findViewById(R.id.register_editText_last_name);
 
         // TODO 1.2 (optional): If you passed in the user's email with the intent, grab it here and populate our emailEntry element with the email value.
-
+        String getExtras = getIntent().getExtras().getString("email");
+        emailEntry.setText(getExtras);
         // Firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
@@ -59,8 +65,11 @@ public class ActivityRegistration extends AppCompatActivity {
         final String lastName = lNameEntry.getText().toString();
 
         // TODO 3: Create a toast here that will display the user's email.
+        Toast toast = new Toast(ActivityRegistration.this);
+        toast.makeText(this, email, Toast.LENGTH_SHORT).show();
 
         // TODO 4: Hey, while we are logging information let's actually log it! Log the user's email as well.
+        Log.i("Email: ", email);
 
         // If the entered credentials by the user are not valid, then prevent them from registering.
         if( !areCredentialsValid() ) {
@@ -72,6 +81,9 @@ public class ActivityRegistration extends AppCompatActivity {
         mAuth.createNewUser( new User( firstName, lastName, email), password);
 
         // TODO 5: Start the ActivityUserLoggedIn activity here. No need to pass anything extra.
+        Intent i = new Intent(this, ActivityUserLoggedIn.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
         // TODO 5.1 (optional): Bonus points if you lookup intent flags and make it so that when the user presses the back button, they do not come back to this screen (remove back stack).
     }
 

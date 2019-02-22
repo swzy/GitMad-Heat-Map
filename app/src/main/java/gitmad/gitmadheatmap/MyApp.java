@@ -3,6 +3,8 @@ package gitmad.gitmadheatmap;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.firebase.FirebaseApp;
+
 /**
  * Class that is used throughout our code to get the application context.
  * This class allows us to use contexts in any location, but is mainly used in
@@ -14,6 +16,7 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseApp.initializeApp(this);
         mContext = getApplicationContext();
     }
 

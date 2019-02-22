@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GitMad-Heat-Map.iml" filepath="$PROJECT_DIR$/GitMad-Heat-Map.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GM1.iml" filepath="$PROJECT_DIR$/GM1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
